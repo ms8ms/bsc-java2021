@@ -1,11 +1,15 @@
 package ru.bscmsc.task1;
 
-import java.util.Scanner;
+import lombok.SneakyThrows;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class In {
-    private final Scanner scanner = new Scanner(System.in);
+    private final BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
 
+    @SneakyThrows
     public String readCommand() {
-        return scanner.nextLine();
+        return scanner.readLine();
     }
 }
