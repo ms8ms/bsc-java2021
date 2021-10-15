@@ -8,7 +8,7 @@ public class ToDo {
     private final In in = new In();
     private final List<Task> tasks = new ArrayList<>();
 
-    public ToDo() {
+    public void exec() {
         out.printCommands();
         boolean quit = false;
         while (!quit) {
@@ -29,15 +29,15 @@ public class ToDo {
             switch (command) {
                 case ADD:
                     addCommand(getParams(readCommand));
-                    return Command.ADD;
+                    return command;
                 case QUIT:
-                    return Command.QUIT;
+                    return command;
                 case PRINT:
                     printCommand(getParams(readCommand));
-                    return Command.PRINT;
+                    return command;
                 case TOGGLE:
                     toggleCommand(getParams(readCommand));
-                    return Command.TOGGLE;
+                    return command;
                 default:
                     out.printNoSupported();
             }
