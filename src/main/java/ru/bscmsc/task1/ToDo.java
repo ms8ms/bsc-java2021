@@ -1,12 +1,9 @@
 package ru.bscmsc.task1;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ToDo {
     private final Out out = new Out();
     private final In in = new In();
-    private final List<Task> tasks = new ArrayList<>();
+    private Task task = null;
 
     public void exec() {
         out.printCommands();
@@ -52,16 +49,20 @@ public class ToDo {
             out.print("The parameter of command is not be empty.\n");
             out.print("Format command: toggle <task id>.\n");
         } else {
-            try {
-                int taskId = Integer.parseInt(param);
-                if (taskId < 1 || taskId > tasks.size()) {
-                    out.print("The task with entered task id was not found.\n");
-                } else {
-                    tasks.get(taskId - 1).toggle();
-                    out.printSuccessfully();
+            if (task != null) {
+                try {
+                    int taskId = Integer.parseInt(param);
+                    if (taskId != 1) {
+                        out.print("The task with entered task id was not found.\n");
+                    } else {
+                        task.toggle();
+                        out.printSuccessfully();
+                    }
+                } catch (NumberFormatException e) {
+                    out.print("The task id must be number.\n");
                 }
-            } catch (NumberFormatException e) {
-                out.print("The task id must be number.\n");
+            } else {
+                out.print("You have no tasks! Please create a task.\n");
             }
         }
     }
@@ -71,7 +72,13 @@ public class ToDo {
             out.print("The command does not correct parameters.\n");
             out.print("Format command: print [all]\n");
         } else {
-            out.printTasks(tasks, !param.isEmpty());
+            if (task != null) {
+                if (!out.printTask(1, task, !param.isEmpty())) {
+                    out.print("There is no information to output.\n");
+                }
+            } else {
+                out.print("You have no tasks! Please create a task.\n");
+            }
         }
     }
 
@@ -80,12 +87,8 @@ public class ToDo {
             out.print("The description of command is not be empty.\n");
             out.print("Format command: add <description>\n");
         } else {
-            if (tasks.stream().anyMatch(task -> description.equals(task.getDescription()))) {
-                out.print(String.format("The tasks with description (%s) exists\n", description));
-            } else {
-                tasks.add(new Task(description));
-                out.printSuccessfully();
-            }
+            task = new Task(description);
+            out.printSuccessfully();
         }
     }
 
