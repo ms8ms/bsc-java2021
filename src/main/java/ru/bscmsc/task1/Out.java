@@ -26,13 +26,23 @@ public class Out {
         out.println("The command was executed successfully");
     }
 
-    public void printTasks(List<Task> tasks, boolean isPrintAll) {
+    public boolean printTasks(List<Task> tasks, boolean isPrintAll) {
         int i = 0;
+        boolean isPrint = false;
         for (Task task : tasks) {
             i++;
-            if (isPrintAll || !task.getIsComplete())
-                out.printf("%d. [%c] %s %n", i, task.getIsComplete() ? 'x' : ' ', task.getDescription());
+            if (printTask(i, task, isPrintAll) && !isPrint) {
+                isPrint = true;
+            }
         }
+        return isPrint;
+    }
+
+    public boolean printTask(int indexOf, Task task, boolean isPrintAll) {
+        if (isPrintAll || !task.getIsComplete()) {
+            out.printf("%d. [%c] %s %n", indexOf, task.getIsComplete() ? 'x' : ' ', task.getDescription());
+            return true;
+        } else return false;
     }
 
     public void printNoSupported() {
