@@ -8,16 +8,15 @@ import java.util.stream.Collectors;
 public class Print implements ICommand {
 
     @Override
-    public ICommand exec(List<Task> tasks, String param) {
+    public void exec(List<Task> tasks, String param) {
         if (!param.isEmpty() && !"all".equalsIgnoreCase(param)) {
             err.print("The command does not correct parameters.\n");
             out.print("Format command: print [all]\n");
-        } else {
-            if (tasks != null) {
-                printTasks(tasks, !param.isEmpty());
-            }
+            return;
         }
-        return this;
+        if (!tasks.isEmpty()) {
+            printTasks(tasks, !param.isEmpty());
+        }
     }
 
     @Override

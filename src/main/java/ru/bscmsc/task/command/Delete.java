@@ -8,20 +8,21 @@ import java.util.List;
 public class Delete implements ICommand {
 
     @Override
-    public ICommand exec(List<Task> tasks, String param) {
+    public void exec(List<Task> tasks, String param) {
         if (Helper.isParamEmpty(err, param)) {
             out.print("delete <идентификатор задачи>.\n");
-        } else {
-            if (tasks != null) {
-                try {
-                    int taskId = Integer.parseInt(param);
-                    tasks.removeIf(t -> (taskId) == t.getIndex());
-                } catch (NumberFormatException e) {
-                    err.print("The task id must be number.\n");
-                }
-            }
+            return;
         }
-        return this;
+        if (!tasks.isEmpty()) {
+            int taskId;
+            try {
+                taskId = Integer.parseInt(param);
+            } catch (NumberFormatException e) {
+                err.print("The task id must be number.\n");
+                return;
+            }
+            tasks.removeIf(t -> (taskId) == t.getIndex());
+        }
     }
 
     @Override

@@ -12,9 +12,9 @@ public class Out {
     }
 
     public void printCommands() {
-        this.print("Available commands:\n");
+        print("Available commands:\n");
         for (Command command : Command.values()) {
-            this.print(String.format("%d. %s - %s.\n", command.ordinal() + 1, command.getNameCommand(), command.getDescription()));
+            print(String.format("%d. %s - %s.\n", command.ordinal() + 1, command.getNameCommand(), command.getDescription()));
         }
     }
 
@@ -24,10 +24,10 @@ public class Out {
     }
 
     public void selectCommand() {
-        this.print("Select command -> ");
+        print("Select command -> ");
     }
 
     public void printNoSupported() {
-        this.print("The entered command is not supported.\n");
+        print("The entered command is not supported.\n");
     }
 }

@@ -19,7 +19,8 @@ public class ToDo {
             String input = in.readCommand();
             ICommand command = controller(input);
             if (command != null) {
-                quit = Command.QUIT.equals(command.exec(tasks, Helper.getParams(input)).getCommand());
+                command.exec(tasks, Helper.getParams(input));
+                quit = Command.QUIT == command.getCommand();
             }
         }
     }

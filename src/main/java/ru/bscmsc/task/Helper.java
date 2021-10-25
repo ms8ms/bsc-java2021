@@ -1,6 +1,6 @@
 package ru.bscmsc.task;
 
-import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class Helper {
     public static String getParams(String readCommands) {
@@ -8,7 +8,7 @@ public class Helper {
     }
 
     public static boolean isParamEmpty(Out out, String... params) {
-        if (Arrays.stream(params).anyMatch(String::isEmpty)) {
+        if (Stream.of(params).anyMatch(String::isEmpty)) {
             out.print("The parameter of command is not be empty.\n");
             return true;
         }

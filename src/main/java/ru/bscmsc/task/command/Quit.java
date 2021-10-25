@@ -7,8 +7,7 @@ import java.util.List;
 public class Quit implements ICommand {
 
     @Override
-    public ICommand exec(List<Task> tasks, String param) {
-        return this;
+    public void exec(List<Task> tasks, String param) {
     }
 
     @Override
