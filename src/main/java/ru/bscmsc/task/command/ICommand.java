@@ -9,7 +9,7 @@ public interface ICommand {
     Out out = new Out(System.out);
     Out err = new Out(System.err);
 
-    ICommand exec(List<Task> tasks, String param);
+    void exec(List<Task> tasks, String param);
 
     Command getCommand();
 

@@ -8,15 +8,14 @@ import java.util.List;
 public class Search implements ICommand {
 
     @Override
-    public ICommand exec(List<Task> tasks, String substring) {
+    public void exec(List<Task> tasks, String substring) {
         if (Helper.isParamEmpty(err, substring)) {
             out.print("Format command: search <substring>\n");
-        } else {
-            if (tasks != null) {
-                printTasks(tasks, substring);
-            }
+            return;
         }
-        return this;
+        if (!tasks.isEmpty()) {
+            printTasks(tasks, substring);
+        }
     }
 
     @Override

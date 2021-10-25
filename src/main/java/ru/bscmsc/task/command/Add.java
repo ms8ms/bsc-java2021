@@ -8,13 +8,12 @@ import java.util.List;
 public class Add implements ICommand {
 
     @Override
-    public ICommand exec(List<Task> tasks, String description) {
+    public void exec(List<Task> tasks, String description) {
         if (Helper.isParamEmpty(err, description)) {
             out.print("Format command: add <description>\n");
-        } else {
-            tasks.add(new Task(description, tasks.size() + 1));
+            return;
         }
-        return this;
+        tasks.add(new Task(description, tasks.size() + 1));
     }
 
     @Override
