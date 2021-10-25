@@ -1,4 +1,4 @@
-package ru.bscmsc.task1;
+package ru.bscmsc.task;
 
 import lombok.SneakyThrows;
 
