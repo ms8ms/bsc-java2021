@@ -2,24 +2,23 @@ package ru.bscmsc.task.command;
 
 import ru.bscmsc.task.Bean;
 
-public class Quit extends Command implements ICommand {
-
-    public Quit(Bean bean) {
+public class NotSupport extends Command implements ICommand {
+    public NotSupport(Bean bean) {
         super(bean);
     }
 
     @Override
     public void exec(String param) {
-        out.print("Good bye!");
+        out.printError("The Command is not supported");
     }
 
     @Override
     public String name() {
-        return "quit";
+        return "noSupport";
     }
 
     @Override
     public String description() {
-        return "завершение работы";
+        return "noSupport";
     }
 }

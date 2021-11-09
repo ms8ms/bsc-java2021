@@ -1,32 +1,40 @@
 package ru.bscmsc.task.command;
 
+import ru.bscmsc.task.Bean;
 import ru.bscmsc.task.Helper;
-import ru.bscmsc.task.Out;
-import ru.bscmsc.task.Tasks;
 
-public class Toggle implements ICommand {
+public class Toggle extends Command implements ICommand {
+
+    public Toggle(Bean bean) {
+        super(bean);
+    }
 
     @Override
     public void exec(String param) {
         if (Helper.isParamEmpty(param)) {
-            Out.getInstance().print("Format command: toggle <task id>.");
+            out.print("Format command: toggle <task id>.");
             return;
         }
-        if (!Tasks.getInstance().getTasks().isEmpty()) {
+        if (!tasks.getTasks().isEmpty()) {
             int taskId;
             try {
                 taskId = Integer.parseInt(param);
             } catch (NumberFormatException e) {
-                Out.getInstance().printError("The task id must be number.", e);
+                out.printError("The task id must be number.", e);
                 return;
             }
-            Tasks.getInstance().toggle(taskId);
+            tasks.toggle(taskId);
         }
     }
 
     @Override
-    public Command getCommand() {
-        return Command.TOGGLE;
+    public String name() {
+        return "toggle";
+    }
+
+    @Override
+    public String description() {
+        return "изменение статуса задачи";
     }
 
 }

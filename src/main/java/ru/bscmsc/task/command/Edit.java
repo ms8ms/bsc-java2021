@@ -1,11 +1,14 @@
 package ru.bscmsc.task.command;
 
+import ru.bscmsc.task.Bean;
 import ru.bscmsc.task.Helper;
-import ru.bscmsc.task.Out;
-import ru.bscmsc.task.Tasks;
 
 
-public class Edit implements ICommand {
+public class Edit extends Command implements ICommand {
+
+    public Edit(Bean bean) {
+        super(bean);
+    }
 
     @Override
     public void exec(String param) {
@@ -13,23 +16,28 @@ public class Edit implements ICommand {
         String description = Helper.getParams(param);
 
         if (Helper.isParamEmpty(index, description)) {
-            Out.getInstance().print("edit <идентификатор задачи> <новое значение>");
+            out.print("edit <идентификатор задачи> <новое значение>");
             return;
         }
-        if (!Tasks.getInstance().getTasks().isEmpty()) {
+        if (!tasks.getTasks().isEmpty()) {
             int taskId;
             try {
                 taskId = Integer.parseInt(index);
             } catch (NumberFormatException e) {
-                Out.getInstance().printError("The task id must be number.", e);
+                out.printError("The task id must be number.", e);
                 return;
             }
-            Tasks.getInstance().updateTask(taskId, description);
+            tasks.updateTask(taskId, description);
         }
     }
 
     @Override
-    public Command getCommand() {
-        return Command.EDIT;
+    public String name() {
+        return "edit";
+    }
+
+    @Override
+    public String description() {
+        return "редактирования задачи";
     }
 }

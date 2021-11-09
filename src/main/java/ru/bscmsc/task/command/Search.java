@@ -1,33 +1,41 @@
 package ru.bscmsc.task.command;
 
+import ru.bscmsc.task.Bean;
 import ru.bscmsc.task.Helper;
-import ru.bscmsc.task.Out;
 import ru.bscmsc.task.Task;
-import ru.bscmsc.task.Tasks;
 
 import java.util.List;
 
 
-public class Search implements ICommand {
+public class Search extends Command implements ICommand {
+
+    public Search(Bean bean) {
+        super(bean);
+    }
 
     @Override
     public void exec(String substring) {
         if (Helper.isParamEmpty(substring)) {
-            Out.getInstance().print("Format command: search <substring>");
+            out.print("Format command: search <substring>");
             return;
         }
-        if (!Tasks.getInstance().getTasks().isEmpty()) {
+        if (!tasks.getTasks().isEmpty()) {
             printTasks(substring);
         }
     }
 
     @Override
-    public Command getCommand() {
-        return Command.SEARCH;
+    public String name() {
+        return "search";
+    }
+
+    @Override
+    public String description() {
+        return "поиска по подстроке";
     }
 
     public void printTasks(String substring) {
-        List<Task> toPrint = Tasks.getInstance().getTasks(substring);
-        toPrint.forEach(t -> Out.getInstance().print(t.toString()));
+        List<Task> toPrint = tasks.getTasks(substring);
+        toPrint.forEach(t -> out.print(t.toString()));
     }
 }

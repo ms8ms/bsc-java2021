@@ -1,28 +1,19 @@
 package ru.bscmsc.task.command;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import ru.bscmsc.task.Bean;
+import ru.bscmsc.task.IOut;
+import ru.bscmsc.task.ITasks;
 
-import java.util.Arrays;
+public abstract class Command implements ICommand {
+    protected final ITasks tasks;
+    protected final IOut out;
 
-@AllArgsConstructor
-@Getter
-public enum Command {
-    ADD("add", "добавление задачи", new Add()),
-    PRINT("print", "печать списка задач", new Print()),
-    TOGGLE("toggle", "изменение статуса задачи", new Toggle()),
-    DELETE("delete", "удаления задачи из списка", new Delete()),
-    EDIT("edit", "редактирования задачи", new Edit()),
-    SEARCH("search", "поиска по подстроке", new Search()),
-    QUIT("quit", "завершение работы", new Quit()),
-    ;
+    public Command(Bean bean) {
+        tasks = bean.getTasks();
+        out = bean.getOut();
+    }
 
-    private final String nameCommand;
-    private final String description;
-    private final ICommand command;
-
-    public static Command byName(String name) {
-        return Arrays.stream(Command.values())
-                .filter(command -> name.equalsIgnoreCase(command.nameCommand)).findFirst().orElse(null);
+    public boolean isName(String toLowerCase) {
+        return name().equalsIgnoreCase(toLowerCase);
     }
 }

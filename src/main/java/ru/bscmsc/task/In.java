@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 @Slf4j
-public class In {
+public class In implements IInput {
     private final BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
 
     @SneakyThrows

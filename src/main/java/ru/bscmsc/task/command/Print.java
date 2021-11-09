@@ -1,34 +1,42 @@
 package ru.bscmsc.task.command;
 
-import ru.bscmsc.task.Out;
+import ru.bscmsc.task.Bean;
 import ru.bscmsc.task.Task;
-import ru.bscmsc.task.Tasks;
 
 import java.util.List;
 
 
-public class Print implements ICommand {
+public class Print extends Command implements ICommand {
+
+    public Print(Bean bean) {
+        super(bean);
+    }
 
     @Override
     public void exec(String param) {
         if (!param.isEmpty() && !"all".equalsIgnoreCase(param)) {
-            Out.getInstance().printError("The command does not correct parameters.\n");
-            Out.getInstance().print("Format command: print [all]\n");
+            out.printError("The command does not correct parameters.\n");
+            out.print("Format command: print [all]\n");
             return;
         }
-        if (!Tasks.getInstance().getTasks().isEmpty()) {
+        if (!tasks.getTasks().isEmpty()) {
             printTasks(!param.isEmpty());
         }
     }
 
     @Override
-    public Command getCommand() {
-        return Command.PRINT;
+    public String name() {
+        return "print";
     }
 
-    public void printTasks(boolean isPrintAll) {
-        List<Task> toPrint = Tasks.getInstance().getTasks(isPrintAll);
-        toPrint.forEach(t -> Out.getInstance().print(t.toString()));
+    @Override
+    public String description() {
+        return "печать списка задач";
+    }
+
+    private void printTasks(boolean isPrintAll) {
+        List<Task> toPrint = tasks.getTasks(isPrintAll);
+        toPrint.forEach(t -> out.print(t.toString()));
     }
 
 }

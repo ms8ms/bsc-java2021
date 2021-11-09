@@ -1,32 +1,40 @@
 package ru.bscmsc.task.command;
 
+import ru.bscmsc.task.Bean;
 import ru.bscmsc.task.Helper;
-import ru.bscmsc.task.Out;
-import ru.bscmsc.task.Tasks;
 
 
-public class Delete implements ICommand {
+public class Delete extends Command implements ICommand {
+
+    public Delete(Bean bean) {
+        super(bean);
+    }
 
     @Override
     public void exec(String param) {
         if (Helper.isParamEmpty(param)) {
-            Out.getInstance().print("delete <идентификатор задачи>.");
+            out.print("delete <идентификатор задачи>.");
             return;
         }
-        if (!Tasks.getInstance().getTasks().isEmpty()) {
+        if (!tasks.getTasks().isEmpty()) {
             int taskId;
             try {
                 taskId = Integer.parseInt(param);
             } catch (NumberFormatException e) {
-                Out.getInstance().printError("The task id must be number.", e);
+                out.printError("The task id must be number.", e);
                 return;
             }
-            Tasks.getInstance().remove(taskId);
+            tasks.remove(taskId);
         }
     }
 
     @Override
-    public Command getCommand() {
-        return Command.DELETE;
+    public String name() {
+        return "delete";
+    }
+
+    @Override
+    public String description() {
+        return "удаления задачи из списка";
     }
 }

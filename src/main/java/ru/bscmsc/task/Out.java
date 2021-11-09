@@ -1,27 +1,22 @@
 package ru.bscmsc.task;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.bscmsc.task.command.Command;
+import ru.bscmsc.task.command.ICommand;
+
+import java.util.List;
 
 @Slf4j
-public class Out {
-    private static Out out;
-
-    public static Out getInstance() {
-        if (out == null) {
-            out = new Out();
-        }
-        return out;
-    }
+public class Out implements IOut {
 
     public void print(String message) {
         log.debug(message);
     }
 
-    public void printCommands() {
+    public void printCommands(List<ICommand> commands) {
         StringBuilder str = new StringBuilder("Available commands:");
-        for (Command command : Command.values()) {
-            str.append(String.format("%n%d. %s - %s.", command.ordinal() + 1, command.getNameCommand(), command.getDescription()));
+        int number = 0;
+        for (ICommand command : commands) {
+            str.append(String.format("%n%d. %s - %s.", ++number, command.name(), command.description()));
         }
         print(str.toString());
     }

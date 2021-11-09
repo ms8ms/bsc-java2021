@@ -4,16 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Tasks {
-    private static Tasks instance;
-    private final List<Task> tasks = new ArrayList<>();
+public class Tasks implements ITasks {
 
-    public static Tasks getInstance() {
-        if (instance == null) {
-            instance = new Tasks();
-        }
-        return instance;
-    }
+    private final List<Task> tasks = new ArrayList<>();
 
     public void add(String description) {
         tasks.add(new Task(description, tasks.size() + 1));
