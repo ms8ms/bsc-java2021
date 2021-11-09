@@ -1,20 +1,23 @@
 package ru.bscmsc.task.command;
 
 import ru.bscmsc.task.Helper;
+import ru.bscmsc.task.Out;
 import ru.bscmsc.task.Task;
+import ru.bscmsc.task.Tasks;
 
 import java.util.List;
+
 
 public class Search implements ICommand {
 
     @Override
-    public void exec(List<Task> tasks, String substring) {
-        if (Helper.isParamEmpty(err, substring)) {
-            out.print("Format command: search <substring>\n");
+    public void exec(String substring) {
+        if (Helper.isParamEmpty(substring)) {
+            Out.getInstance().print("Format command: search <substring>");
             return;
         }
-        if (!tasks.isEmpty()) {
-            printTasks(tasks, substring);
+        if (!Tasks.getInstance().getTasks().isEmpty()) {
+            printTasks(substring);
         }
     }
 
@@ -23,9 +26,8 @@ public class Search implements ICommand {
         return Command.SEARCH;
     }
 
-    public void printTasks(List<Task> tasks, String substring) {
-        tasks.stream().filter(task -> task.getDescription().contains(substring)).
-                forEach(t -> out.print(t.toString()));
-
+    public void printTasks(String substring) {
+        List<Task> toPrint = Tasks.getInstance().getTasks(substring);
+        toPrint.forEach(t -> Out.getInstance().print(t.toString()));
     }
 }

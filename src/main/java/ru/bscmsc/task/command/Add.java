@@ -1,19 +1,20 @@
 package ru.bscmsc.task.command;
 
 import ru.bscmsc.task.Helper;
-import ru.bscmsc.task.Task;
+import ru.bscmsc.task.Out;
+import ru.bscmsc.task.Tasks;
 
-import java.util.List;
 
 public class Add implements ICommand {
 
+
     @Override
-    public void exec(List<Task> tasks, String description) {
-        if (Helper.isParamEmpty(err, description)) {
-            out.print("Format command: add <description>\n");
+    public void exec(String description) {
+        if (Helper.isParamEmpty(description)) {
+            Out.getInstance().printError("Format command: add <description>");
             return;
         }
-        tasks.add(new Task(description, tasks.size() + 1));
+        Tasks.getInstance().add(description);
     }
 
     @Override

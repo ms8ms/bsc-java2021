@@ -1,26 +1,29 @@
 package ru.bscmsc.task;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.bscmsc.task.command.Command;
 
-import java.io.PrintStream;
-
+@Slf4j
 public class Out {
-    private final PrintStream out;
+    private static Out out;
 
-    public Out(PrintStream printStream) {
-        out = printStream;
-    }
-
-    public void printCommands() {
-        print("Available commands:\n");
-        for (Command command : Command.values()) {
-            print(String.format("%d. %s - %s.\n", command.ordinal() + 1, command.getNameCommand(), command.getDescription()));
+    public static Out getInstance() {
+        if (out == null) {
+            out = new Out();
         }
+        return out;
     }
 
     public void print(String message) {
-        out.print(message);
-        out.flush();
+        log.debug(message);
+    }
+
+    public void printCommands() {
+        StringBuilder str = new StringBuilder("Available commands:");
+        for (Command command : Command.values()) {
+            str.append(String.format("%n%d. %s - %s.", command.ordinal() + 1, command.getNameCommand(), command.getDescription()));
+        }
+        print(str.toString());
     }
 
     public void selectCommand() {
@@ -28,6 +31,14 @@ public class Out {
     }
 
     public void printNoSupported() {
-        print("The entered command is not supported.\n");
+        printError("The entered command is not supported.");
+    }
+
+    public void printError(String message) {
+        log.error(message);
+    }
+
+    public void printError(String message, Throwable e) {
+        log.error(message, e);
     }
 }

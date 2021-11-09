@@ -1,27 +1,26 @@
 package ru.bscmsc.task.command;
 
 import ru.bscmsc.task.Helper;
-import ru.bscmsc.task.Task;
-
-import java.util.List;
+import ru.bscmsc.task.Out;
+import ru.bscmsc.task.Tasks;
 
 public class Toggle implements ICommand {
 
     @Override
-    public void exec(List<Task> tasks, String param) {
-        if (Helper.isParamEmpty(err, param)) {
-            out.print("Format command: toggle <task id>.\n");
+    public void exec(String param) {
+        if (Helper.isParamEmpty(param)) {
+            Out.getInstance().print("Format command: toggle <task id>.");
             return;
         }
-        if (!tasks.isEmpty()) {
+        if (!Tasks.getInstance().getTasks().isEmpty()) {
             int taskId;
             try {
                 taskId = Integer.parseInt(param);
             } catch (NumberFormatException e) {
-                err.print("The task id must be number.\n");
+                Out.getInstance().printError("The task id must be number.", e);
                 return;
             }
-            tasks.stream().filter(t -> taskId == t.getIndex()).findFirst().ifPresent(Task::toggle);
+            Tasks.getInstance().toggle(taskId);
         }
     }
 
