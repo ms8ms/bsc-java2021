@@ -1,10 +1,13 @@
 package ru.bscmsc.task.command;
 
-import ru.bscmsc.task.Bean;
+import ru.bscmsc.task.IOut;
 
 public class NotSupport extends Command implements ICommand {
-    public NotSupport(Bean bean) {
-        super(bean);
+
+    private final IOut out;
+
+    public NotSupport(IOut out) {
+        this.out = out;
     }
 
     @Override

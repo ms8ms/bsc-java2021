@@ -1,18 +1,24 @@
 package ru.bscmsc.task.command;
 
-import ru.bscmsc.task.Bean;
 import ru.bscmsc.task.Helper;
+import ru.bscmsc.task.IOut;
+import ru.bscmsc.task.ITasks;
 
 
 public class Delete extends Command implements ICommand {
 
-    public Delete(Bean bean) {
-        super(bean);
+
+    private final ITasks tasks;
+    private final IOut out;
+
+    public Delete(ITasks tasks, IOut out) {
+        this.tasks = tasks;
+        this.out = out;
     }
 
     @Override
     public void exec(String param) {
-        if (Helper.isParamEmpty(param)) {
+        if (Helper.isParamEmpty(out, param)) {
             out.print("delete <идентификатор задачи>.");
             return;
         }

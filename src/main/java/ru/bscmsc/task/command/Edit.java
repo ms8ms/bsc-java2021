@@ -1,13 +1,17 @@
 package ru.bscmsc.task.command;
 
-import ru.bscmsc.task.Bean;
 import ru.bscmsc.task.Helper;
+import ru.bscmsc.task.IOut;
+import ru.bscmsc.task.ITasks;
 
 
 public class Edit extends Command implements ICommand {
+    private final ITasks tasks;
+    private final IOut out;
 
-    public Edit(Bean bean) {
-        super(bean);
+    public Edit(ITasks tasks, IOut out) {
+        this.tasks = tasks;
+        this.out = out;
     }
 
     @Override
@@ -15,7 +19,7 @@ public class Edit extends Command implements ICommand {
         String index = param.substring(0, param.indexOf(" ") + 1).trim();
         String description = Helper.getParams(param);
 
-        if (Helper.isParamEmpty(index, description)) {
+        if (Helper.isParamEmpty(out, index, description)) {
             out.print("edit <идентификатор задачи> <новое значение>");
             return;
         }

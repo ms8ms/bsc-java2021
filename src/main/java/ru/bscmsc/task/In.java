@@ -13,7 +13,7 @@ public class In implements IInput {
     @SneakyThrows
     public String readCommand() {
         String command = scanner.readLine();
-        log.debug(String.format("Entered command: %s", command));
+        log.debug("Entered command: {}", command);
         return command;
     }
 }

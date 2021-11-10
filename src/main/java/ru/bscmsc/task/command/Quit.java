@@ -1,11 +1,12 @@
 package ru.bscmsc.task.command;
 
-import ru.bscmsc.task.Bean;
+import ru.bscmsc.task.IOut;
 
 public class Quit extends Command implements ICommand {
+    private final IOut out;
 
-    public Quit(Bean bean) {
-        super(bean);
+    public Quit(IOut out) {
+        this.out = out;
     }
 
     @Override
