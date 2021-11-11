@@ -1,6 +1,7 @@
 package ru.bscmsc.task.command;
 
-import ru.bscmsc.task.Bean;
+import ru.bscmsc.task.IOut;
+import ru.bscmsc.task.ITasks;
 import ru.bscmsc.task.Task;
 
 import java.util.List;
@@ -8,8 +9,12 @@ import java.util.List;
 
 public class Print extends Command implements ICommand {
 
-    public Print(Bean bean) {
-        super(bean);
+    private final ITasks tasks;
+    private final IOut out;
+
+    public Print(ITasks tasks, IOut out) {
+        this.tasks = tasks;
+        this.out = out;
     }
 
     @Override
