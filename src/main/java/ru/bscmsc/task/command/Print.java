@@ -1,34 +1,46 @@
 package ru.bscmsc.task.command;
 
+import ru.bscmsc.task.IOut;
+import ru.bscmsc.task.ITasks;
 import ru.bscmsc.task.Task;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Print implements ICommand {
+
+public class Print extends Command implements ICommand {
+
+    private final ITasks tasks;
+    private final IOut out;
+
+    public Print(ITasks tasks, IOut out) {
+        this.tasks = tasks;
+        this.out = out;
+    }
 
     @Override
-    public void exec(List<Task> tasks, String param) {
+    public void exec(String param) {
         if (!param.isEmpty() && !"all".equalsIgnoreCase(param)) {
-            err.print("The command does not correct parameters.\n");
+            out.printError("The command does not correct parameters.\n");
             out.print("Format command: print [all]\n");
             return;
         }
-        if (!tasks.isEmpty()) {
-            printTasks(tasks, !param.isEmpty());
+        if (!tasks.getTasks().isEmpty()) {
+            printTasks(!param.isEmpty());
         }
     }
 
     @Override
-    public Command getCommand() {
-        return Command.PRINT;
+    public String name() {
+        return "print";
     }
 
-    public void printTasks(List<Task> tasks, boolean isPrintAll) {
-        List<Task> toPrint = tasks;
-        if (!isPrintAll) {
-            toPrint = tasks.stream().filter((Task::getIsNotComplete)).collect(Collectors.toList());
-        }
+    @Override
+    public String description() {
+        return "печать списка задач";
+    }
+
+    private void printTasks(boolean isPrintAll) {
+        List<Task> toPrint = tasks.getTasks(isPrintAll);
         toPrint.forEach(t -> out.print(t.toString()));
     }
 

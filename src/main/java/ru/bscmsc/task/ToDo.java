@@ -1,43 +1,37 @@
 package ru.bscmsc.task;
 
-import ru.bscmsc.task.command.Command;
-import ru.bscmsc.task.command.ICommand;
+import ru.bscmsc.task.command.*;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ToDo {
-    private final Out out = new Out(System.out);
-    private final In in = new In();
-    private final List<Task> tasks = new ArrayList<>();
+    private final IInput in = new In();
+    private final IOut out = new Out();
+    private final ITasks tasks = new Tasks();
+    private final List<ICommand> listCommand = Arrays.asList(new Add(tasks, out), new Delete(tasks, out),
+            new Edit(tasks, out), new Print(tasks, out), new Quit(out),
+            new Search(tasks, out), new Toggle(tasks, out));
+
 
     public void exec() {
-        out.printCommands();
-        boolean quit = false;
-        while (!quit) {
+        out.printCommands(listCommand);
+        ICommand command;
+        do {
             out.selectCommand();
             String input = in.readCommand();
-            ICommand command = controller(input);
-            if (command != null) {
-                command.exec(tasks, Helper.getParams(input));
-                quit = Command.QUIT == command.getCommand();
-            }
-        }
+            command = controller(input);
+            command.exec(Helper.getParams(input));
+        } while (!command.isName("quit"));
     }
 
     private ICommand controller(String readCommand) {
         String[] pars = readCommand.trim().split(" ");
-
         if (pars[0].isEmpty()) {
-            out.print("You have not entered a command\n");
-            return null;
+            out.printError("You have not entered a command");
+            return new NotSupport(out);
         }
-        Command command = Command.byName(pars[0].toLowerCase());
-        if (command != null) {
-            return command.getCommand();
-        } else {
-            out.printNoSupported();
-        }
-        return null;
+        return listCommand.stream().filter(c -> c.isName(pars[0].toLowerCase()))
+                .findFirst().orElse(new NotSupport(out));
     }
 }

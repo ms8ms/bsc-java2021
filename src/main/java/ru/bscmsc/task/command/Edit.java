@@ -1,36 +1,47 @@
 package ru.bscmsc.task.command;
 
 import ru.bscmsc.task.Helper;
-import ru.bscmsc.task.Task;
+import ru.bscmsc.task.IOut;
+import ru.bscmsc.task.ITasks;
 
-import java.util.List;
 
-public class Edit implements ICommand {
+public class Edit extends Command implements ICommand {
+    private final ITasks tasks;
+    private final IOut out;
+
+    public Edit(ITasks tasks, IOut out) {
+        this.tasks = tasks;
+        this.out = out;
+    }
 
     @Override
-    public void exec(List<Task> tasks, String param) {
+    public void exec(String param) {
         String index = param.substring(0, param.indexOf(" ") + 1).trim();
         String description = Helper.getParams(param);
 
-        if (Helper.isParamEmpty(err, index, description)) {
-            out.print("edit <идентификатор задачи> <новое значение>\n");
+        if (Helper.isParamEmpty(out, index, description)) {
+            out.print("edit <идентификатор задачи> <новое значение>");
             return;
         }
-        if (!tasks.isEmpty()) {
+        if (!tasks.getTasks().isEmpty()) {
             int taskId;
             try {
                 taskId = Integer.parseInt(index);
             } catch (NumberFormatException e) {
-                err.print("The task id must be number.\n");
+                out.printError("The task id must be number.", e);
                 return;
             }
-            tasks.stream().filter(t -> (taskId) == t.getIndex())
-                    .forEach(t -> t.setDescription(description));
+            tasks.updateTask(taskId, description);
         }
     }
 
     @Override
-    public Command getCommand() {
-        return Command.EDIT;
+    public String name() {
+        return "edit";
+    }
+
+    @Override
+    public String description() {
+        return "редактирования задачи";
     }
 }
