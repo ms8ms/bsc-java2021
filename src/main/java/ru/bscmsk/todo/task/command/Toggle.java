@@ -1,18 +1,17 @@
-package ru.bscmsc.task.command;
+package ru.bscmsk.todo.task.command;
 
-import ru.bscmsc.task.Helper;
-import ru.bscmsc.task.IOut;
-import ru.bscmsc.task.ITasks;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import ru.bscmsk.todo.task.Helper;
+import ru.bscmsk.todo.task.IOut;
+import ru.bscmsk.todo.task.ITasks;
 
+@Component
+@RequiredArgsConstructor
 public class Toggle extends Command implements ICommand {
 
     private final ITasks tasks;
     private final IOut out;
-
-    public Toggle(ITasks tasks, IOut out) {
-        this.tasks = tasks;
-        this.out = out;
-    }
 
     @Override
     public void exec(String param) {

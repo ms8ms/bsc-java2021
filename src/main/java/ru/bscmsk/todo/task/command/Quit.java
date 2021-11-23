@@ -1,13 +1,13 @@
-package ru.bscmsc.task.command;
+package ru.bscmsk.todo.task.command;
 
-import ru.bscmsc.task.IOut;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import ru.bscmsk.todo.task.IOut;
 
+@Component
+@RequiredArgsConstructor
 public class Quit extends Command implements ICommand {
     private final IOut out;
-
-    public Quit(IOut out) {
-        this.out = out;
-    }
 
     @Override
     public void exec(String param) {

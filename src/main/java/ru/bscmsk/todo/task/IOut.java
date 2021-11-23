@@ -1,6 +1,7 @@
-package ru.bscmsc.task;
+package ru.bscmsk.todo.task;
 
-import ru.bscmsc.task.command.ICommand;
+
+import ru.bscmsk.todo.task.command.ICommand;
 
 import java.util.List;
 
@@ -10,8 +11,6 @@ public interface IOut {
     void printCommands(List<ICommand> commands);
 
     void selectCommand();
-
-    void printNoSupported();
 
     void printError(String message);
 

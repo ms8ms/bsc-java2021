@@ -1,9 +1,12 @@
-package ru.bscmsc.task;
+package ru.bscmsk.todo.task;
+
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class Tasks implements ITasks {
 
     private final List<Task> tasks = new ArrayList<>();

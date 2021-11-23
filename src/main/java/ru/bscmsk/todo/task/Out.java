@@ -1,15 +1,17 @@
-package ru.bscmsc.task;
+package ru.bscmsk.todo.task;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.bscmsc.task.command.ICommand;
+import org.springframework.stereotype.Component;
+import ru.bscmsk.todo.task.command.ICommand;
 
 import java.util.List;
 
 @Slf4j
+@Component
 public class Out implements IOut {
 
     public void print(String message) {
-        log.debug(message);
+        log.info(message);
     }
 
     public void printCommands(List<ICommand> commands) {
@@ -23,10 +25,6 @@ public class Out implements IOut {
 
     public void selectCommand() {
         print("Select command -> ");
-    }
-
-    public void printNoSupported() {
-        printError("The entered command is not supported.");
     }
 
     public void printError(String message) {

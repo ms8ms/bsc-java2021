@@ -1,17 +1,23 @@
-package ru.bscmsc.task;
+package ru.bscmsk.todo.task;
 
-import ru.bscmsc.task.command.*;
 
-import java.util.Arrays;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.bscmsk.todo.task.command.ICommand;
+import ru.bscmsk.todo.task.command.NotSupport;
+
 import java.util.List;
 
+@Component
 public class ToDo {
-    private final IInput in = new In();
-    private final IOut out = new Out();
-    private final ITasks tasks = new Tasks();
-    private final List<ICommand> listCommand = Arrays.asList(new Add(tasks, out), new Delete(tasks, out),
-            new Edit(tasks, out), new Print(tasks, out), new Quit(out),
-            new Search(tasks, out), new Toggle(tasks, out));
+    @Autowired
+    private IInput in;
+    @Autowired
+    private IOut out;
+    @Autowired
+    private ITasks tasks;
+    @Autowired
+    private List<ICommand> listCommand;
 
 
     public void exec() {

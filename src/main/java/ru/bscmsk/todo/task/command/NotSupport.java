@@ -1,14 +1,11 @@
-package ru.bscmsc.task.command;
+package ru.bscmsk.todo.task.command;
 
-import ru.bscmsc.task.IOut;
+import lombok.RequiredArgsConstructor;
+import ru.bscmsk.todo.task.IOut;
 
+@RequiredArgsConstructor
 public class NotSupport extends Command implements ICommand {
-
     private final IOut out;
-
-    public NotSupport(IOut out) {
-        this.out = out;
-    }
 
     @Override
     public void exec(String param) {

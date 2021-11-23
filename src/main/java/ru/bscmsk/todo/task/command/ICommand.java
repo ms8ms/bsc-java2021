@@ -1,4 +1,4 @@
-package ru.bscmsc.task.command;
+package ru.bscmsk.todo.task.command;
 
 public interface ICommand {
     void exec(String param);

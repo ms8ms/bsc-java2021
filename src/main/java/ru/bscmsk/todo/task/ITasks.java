@@ -1,4 +1,4 @@
-package ru.bscmsc.task;
+package ru.bscmsk.todo.task;
 
 import java.util.List;
 

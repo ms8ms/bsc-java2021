@@ -1,22 +1,20 @@
-package ru.bscmsc.task.command;
+package ru.bscmsk.todo.task.command;
 
-import ru.bscmsc.task.Helper;
-import ru.bscmsc.task.IOut;
-import ru.bscmsc.task.ITasks;
-import ru.bscmsc.task.Task;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import ru.bscmsk.todo.task.Helper;
+import ru.bscmsk.todo.task.IOut;
+import ru.bscmsk.todo.task.ITasks;
+import ru.bscmsk.todo.task.Task;
 
 import java.util.List;
 
-
+@Component
+@RequiredArgsConstructor
 public class Search extends Command implements ICommand {
 
     private final ITasks tasks;
     private final IOut out;
-
-    public Search(ITasks tasks, IOut out) {
-        this.tasks = tasks;
-        this.out = out;
-    }
 
     @Override
     public void exec(String substring) {

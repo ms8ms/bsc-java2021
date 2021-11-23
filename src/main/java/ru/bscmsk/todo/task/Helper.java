@@ -1,4 +1,4 @@
-package ru.bscmsc.task;
+package ru.bscmsk.todo.task;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 @Slf4j
 public class Helper {
-
 
     public static String getParams(String readCommands) {
         return readCommands.replaceFirst("^\\S*", "").trim();
