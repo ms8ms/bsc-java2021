@@ -1,7 +1,7 @@
 package ru.bscmsk.todo.task.command;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import ru.bscmsk.todo.task.IOut;
 import ru.bscmsk.todo.task.ITasks;
 import ru.bscmsk.todo.task.Task;
@@ -9,7 +9,7 @@ import ru.bscmsk.todo.task.Task;
 import java.util.List;
 
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class Print extends Command implements ICommand {
     private final ITasks tasks;

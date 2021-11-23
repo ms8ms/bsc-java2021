@@ -1,10 +1,10 @@
 package ru.bscmsk.todo.task.command;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import ru.bscmsk.todo.task.IOut;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class Quit extends Command implements ICommand {
     private final IOut out;

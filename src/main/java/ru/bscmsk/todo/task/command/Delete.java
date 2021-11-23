@@ -1,12 +1,12 @@
 package ru.bscmsk.todo.task.command;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import ru.bscmsk.todo.task.Helper;
 import ru.bscmsk.todo.task.IOut;
 import ru.bscmsk.todo.task.ITasks;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class Delete extends Command implements ICommand {
     private final ITasks tasks;

@@ -1,7 +1,7 @@
 package ru.bscmsk.todo.task.command;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import ru.bscmsk.todo.task.Helper;
 import ru.bscmsk.todo.task.IOut;
 import ru.bscmsk.todo.task.ITasks;
@@ -9,7 +9,7 @@ import ru.bscmsk.todo.task.Task;
 
 import java.util.List;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class Search extends Command implements ICommand {
 
