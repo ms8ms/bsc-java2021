@@ -21,6 +21,7 @@ public class TaskController {
     private TasksService tasks;
 
     @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
     public TaskDto add(@RequestParam(value = "description") @NonNull String description) {
         return tasks.add(description);
     }
@@ -54,9 +55,9 @@ public class TaskController {
         try {
             taskDto = tasks.toggle(Integer.parseInt(id));
             if (taskDto == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The task with the id was not found");
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         } catch (NumberFormatException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id is not numbers");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return taskDto;
     }
