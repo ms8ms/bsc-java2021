@@ -40,11 +40,11 @@ public class TaskController {
     public TaskDto edit(@PathVariable String id, @NonNull @RequestParam(value = "description") String description) {
         TaskDto taskDto;
         try {
-            taskDto = tasks.updateTask(Integer.parseInt(id), description);
+            taskDto = tasks.updateDescription(Integer.parseInt(id), description);
             if (taskDto == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The task with the id was not found");
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         } catch (NumberFormatException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id is not numbers");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return taskDto;
     }
