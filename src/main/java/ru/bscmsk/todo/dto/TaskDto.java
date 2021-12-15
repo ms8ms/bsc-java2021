@@ -1,16 +1,16 @@
-package ru.bscmsk.todo.task;
+package ru.bscmsk.todo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-public class Task {
+public class TaskDto {
     private final Integer index;
     @Setter
     private String description;
     private Boolean isNotComplete = true;
 
-    public Task(String description, Integer index) {
+    public TaskDto(String description, Integer index) {
         this.description = description;
         this.index = index;
     }
