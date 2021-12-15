@@ -13,26 +13,26 @@ import java.util.function.Consumer;
 public class TasksService {
 
     @Autowired
-    private TaskDao tasks;
+    private TaskDao taskRepository;
 
     public TaskDto add(String description) {
         TaskDto taskNew = new TaskDto();
         taskNew.setDescription(description);
-        tasks.save(taskNew);
+        taskRepository.save(taskNew);
         return taskNew;
     }
 
     public List<TaskDto> getTasks(PrintVariant variant) {
-        if (variant == PrintVariant.ALL) return (List<TaskDto>) tasks.findAll();
-        return tasks.findByIsComplete(false);
+        if (variant == PrintVariant.ALL) return taskRepository.findAll();
+        return taskRepository.findByIsComplete(false);
     }
 
     public List<TaskDto> getTasks(String substring) {
-        return tasks.findByDescriptionContains(substring);
+        return taskRepository.findByDescriptionContains(substring);
     }
 
     public void remove(int taskId) {
-        tasks.deleteById(taskId);
+        taskRepository.deleteById(taskId);
     }
 
     public TaskDto updateDescription(int taskId, String description) {
@@ -43,11 +43,12 @@ public class TasksService {
         return updateTask(taskId, TaskDto::toggle);
     }
 
-    private TaskDto updateTask(int taskId, Consumer<TaskDto> task) {
-        TaskDto taskDto = tasks.findById(taskId).orElse(null);
-        if (taskDto == null) return null;
-        task.accept(taskDto);
-        tasks.save(taskDto);
-        return taskDto;
+    private TaskDto updateTask(int taskId, Consumer<TaskDto> taskAction) {
+        return taskRepository.findById(taskId).map(t ->
+                {
+                    taskAction.accept(t);
+                    return taskRepository.save(t);
+                })
+                .orElse(null);
     }
 }
