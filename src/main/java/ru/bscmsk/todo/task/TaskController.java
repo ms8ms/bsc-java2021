@@ -35,7 +35,7 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public TaskDto edit(@PathVariable Integer id, @NonNull @RequestParam(value = "description") String description) {
-        TaskDto taskDto = tasks.updateTask(id, description);
+        TaskDto taskDto = tasks.updateDescription(id, description);
         if (taskDto == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         return taskDto;
@@ -58,4 +58,5 @@ public class TaskController {
     public List<TaskDto> search(@RequestParam(value = "description") String description) {
         return tasks.getTasks(description);
     }
+
 }
