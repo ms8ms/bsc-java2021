@@ -17,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("tasks")
 public class TaskController {
+
     @Autowired
     private TasksService tasks;
 
@@ -27,38 +28,24 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id) {
-        try {
-            tasks.remove(Integer.parseInt(id));
-            return ResponseEntity.noContent().build();
-        } catch (NumberFormatException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        tasks.remove(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public TaskDto edit(@PathVariable String id, @NonNull @RequestParam(value = "description") String description) {
-        TaskDto taskDto;
-        try {
-            taskDto = tasks.updateTask(Integer.parseInt(id), description);
-            if (taskDto == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The task with the id was not found");
-        } catch (NumberFormatException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id is not numbers");
-        }
+    public TaskDto edit(@PathVariable Integer id, @NonNull @RequestParam(value = "description") String description) {
+        TaskDto taskDto = tasks.updateTask(id, description);
+        if (taskDto == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         return taskDto;
     }
 
     @PatchMapping("/{id}")
-    public TaskDto toggle(@PathVariable String id) {
-        TaskDto taskDto;
-        try {
-            taskDto = tasks.toggle(Integer.parseInt(id));
-            if (taskDto == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        } catch (NumberFormatException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
+    public TaskDto toggle(@PathVariable Integer id) {
+        TaskDto taskDto = tasks.toggle(id);
+        if (taskDto == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         return taskDto;
     }
 
@@ -71,5 +58,4 @@ public class TaskController {
     public List<TaskDto> search(@RequestParam(value = "description") String description) {
         return tasks.getTasks(description);
     }
-
 }
