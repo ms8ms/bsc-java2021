@@ -1,6 +1,5 @@
 package ru.bscmsk.todo.task;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.bscmsk.todo.dao.TaskDao;
 import ru.bscmsk.todo.dto.TaskDto;
@@ -12,7 +11,6 @@ import java.util.function.Consumer;
 @Component
 public class TasksService {
 
-    @Autowired
     private TaskDao taskRepository;
 
     public TaskDto add(String description) {

@@ -1,5 +1,5 @@
 package ru.bscmsk.todo.enums;
 
-public enum UsersRoles {
+public enum UserRole {
     USER, ADMIN
 }
