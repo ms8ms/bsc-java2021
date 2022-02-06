@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+    password: example
+
+logging:
+  level:
+    org:
+      springframework:
+        security: trace

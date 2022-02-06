@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: "003-insertAdmin"
+      author: "Mikhail Smirnov"
+      changes:
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: login
+                  value: "admin"
+              - column:
+                  name: password
+                  value: "$2a$10$/XdvExBjEe0n8PMNM8zpYupnXsLesGT5BAa4EkC7uHzGx/fUW0nre"
+              - column:
+                  name: role
+                  value: "ADMIN"

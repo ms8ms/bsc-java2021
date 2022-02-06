@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: "001-create"
+      author: "Mikhail Smirnov"
+      changes:
+        - createTable:
+            tableName: task
+            remarks: Таблица содержит задачи
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(512)
+                  remarks: Описание задачи
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_complete
+                  type: boolean
+                  defaultValueBoolean: true
+                  remarks: флаг завершенности задачи
+                  constraints:
+                    nullable: false

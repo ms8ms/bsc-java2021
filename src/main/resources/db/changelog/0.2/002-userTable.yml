@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: "002-userTable"
+      author: "Mikhail Smirnov"
+      changes:
+        - createTable:
+            tableName: user
+            remarks: Таблица пользователей
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: login
+                  type: varchar(254)
+                  remarks: Имя пользователя
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(512)
+                  remarks: Пароль пользователя
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(20)
+                  remarks: Роль пользователя
+                  constraints:
+                    nullable: false
